@@ -9,12 +9,12 @@ def get_weather(api_key, city):
     data = response.json()
     return data
 
-def send_text_message(account_sid, auth_token, from_number, to_number, message):
+def send_text(account_sid, auth_token, from_number, to_number, message):
     client = Client(account_sid, auth_token)
     message = client.messages.create(
-        body=message,
-        from_=from_number,
-        to=to_number
+        body = message,
+        from_ = from_number,
+        to = to_number
     )
     return message.sid
 
@@ -38,7 +38,7 @@ def main():
 
         if any(keyword in weather_description.lower() for keyword in rain_keywords):
             message = f"Move your car! There's bad weather in {city_name}. Weather: {weather_description}"
-            send_text_message(twilio_account_sid, twilio_auth_token, twilio_from_number, to_phone_number, message)
+            send_text(twilio_account_sid, twilio_auth_token, twilio_from_number, to_phone_number, message)
 
         # Check the weather every hour (adjust time.sleep() value as needed)
         time.sleep(3600)
